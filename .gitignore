@@ -1,0 +1,15 @@
+node_modules/
+.pnpm-store/
+.astro/
+.next/
+dist/
+build/
+coverage/
+*.log
+*.tsbuildinfo
+.env
+.env.*
+!.env.example
+apps/cms/media/
+apps/cms/src/payload-types.ts
+apps/cms/src/payload-generated-schema.ts

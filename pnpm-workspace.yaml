@@ -1,0 +1,40 @@
+packages:
+  - apps/*
+
+engineStrict: true
+autoInstallPeers: false
+linkWorkspacePackages: true
+
+overrides:
+  dompurify: 3.4.17
+  '@esbuild-kit/core-utils>esbuild': 0.25.0
+  happy-dom@>=17.0.0 <=21.0.3: 21.0.4
+  undici@>=7.0.0 <7.30.1: 7.30.1
+
+supportedArchitectures:
+  os:
+    - win32
+    - linux
+  cpu:
+    - x64
+  libc:
+    - glibc
+
+allowBuilds:
+  sharp: true
+  esbuild: true
+  unrs-resolver: true
+  '@scarf/scarf': false
+
+minimumReleaseAgeExclude:
+  - '@typescript-eslint/eslint-plugin@8.72.1'
+  - '@typescript-eslint/parser@8.72.1'
+  - '@typescript-eslint/project-service@8.72.1'
+  - '@typescript-eslint/scope-manager@8.72.1'
+  - '@typescript-eslint/tsconfig-utils@8.72.1'
+  - '@typescript-eslint/type-utils@8.72.1'
+  - '@typescript-eslint/types@8.72.1'
+  - '@typescript-eslint/typescript-estree@8.72.1'
+  - '@typescript-eslint/utils@8.72.1'
+  - '@typescript-eslint/visitor-keys@8.72.1'
+  - typescript-eslint@8.72.1
