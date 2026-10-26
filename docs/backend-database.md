@@ -26,25 +26,48 @@ restarts and is not a replacement for infrastructure-level rate limiting.
 
 ## Database workflow
 
-From the repository root, with `apps/cms/.env` configured for a dedicated non-production database:
+PostgreSQL 16.8 portable binaries are installed locally at
+`D:\2027\.local\postgresql-16.8\pgsql`. The dedicated project cluster is stored in the ignored
+`.local/postgres-data` directory and listens only on `127.0.0.1:55432`.
+
+From the repository root:
 
 ```powershell
-pnpm --filter @poc/cms migrate:status
-pnpm --filter @poc/cms migrate
-pnpm --filter @poc/cms seed
+corepack pnpm db:start
+corepack pnpm db:status
+corepack pnpm db:stop
+```
+
+With `apps/cms/.env` configured for the dedicated non-production database:
+
+```powershell
+corepack pnpm --filter @poc/cms migrate:status
+corepack pnpm --filter @poc/cms migrate
+corepack pnpm --filter @poc/cms seed
 ```
 
 The seed is repeatable. It updates or reuses records selected by stable unique fields instead of
-creating duplicates. Its administrator email and password come from `SEED_ADMIN_EMAIL` and
-`SEED_ADMIN_PASSWORD`.
+creating duplicates. Test account credentials come from the `SEED_ADMIN_*` and `SEED_EDITOR_*`
+environment variables.
 
 Schema changes must be represented by a new Payload migration and reviewed before execution. Runtime
 schema push is disabled. Never point migration or seed commands at an existing production database.
 
-## Current verification boundary
+## Local verification results
 
-The initial migration was generated from the Payload schema, and types, lint, and the production
-compile pass on Node.js 24.13.0. No PostgreSQL service is installed or listening on this development
-machine, so applying the migration, running the seed, CRUD verification, login, and persistence tests
-remain unverified. These results must not be reported as passed until a dedicated PostgreSQL database
-is provided.
+Verified locally with Node.js 24.13.0 and PostgreSQL 16.8:
+
+- Initial migration applied successfully.
+- Migration `up`, `down`, then `up` succeeded on an isolated temporary database.
+- Repeatable seed executed twice without duplicating domain records.
+- Admin and editor authentication and role restrictions passed.
+- Draft editing preserved the published page, and publishing restored the updated public document.
+- Person/group/phone/address/task-assignment relationships returned correctly through REST.
+- Public reads, private contact-submission reads, and content write restrictions passed.
+- Contact submission validation, CORS rejection, restricted standard REST writes, and persistence
+  passed.
+- Image upload, public retrieval, administrative deletion, and file cleanup passed.
+- Database restart retained seeded content, the contact submission, and migration history.
+- Payload type generation, ESLint, TypeScript, Prettier, security audit, and production compile passed.
+
+Real cPanel behavior remains unverified until the explicitly approved server-validation phase.

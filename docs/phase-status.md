@@ -4,7 +4,7 @@
 
 **Phase 3 — Backend and Database**
 
-Status: implementation complete; database runtime verification pending.
+Status: complete; waiting for approval before Phase 4.
 
 ## Approved versions
 
@@ -26,17 +26,17 @@ Status: implementation complete; database runtime verification pending.
 
 ## Review gate
 
-Completed on Node.js 24.13.0 without a database connection:
+Completed on Node.js 24.13.0 and local PostgreSQL 16.8:
 
+- Migration apply, rollback, re-apply, and status checks.
+- Repeatable seed execution and relationship persistence.
+- Admin/editor login and access-control verification.
+- Public/private REST API and contact-submission persistence verification.
+- Media upload, retrieval, deletion, and filesystem cleanup.
+- PostgreSQL restart with data and migration-history persistence.
 - Payload type generation.
 - ESLint, TypeScript, and Prettier checks.
 - Payload/Next production compile including `/api/contact`.
-- Static migration generation and schema review.
-
-Pending because PostgreSQL is not installed or listening locally:
-
-- Apply and rollback migration tests.
-- Repeatable seed execution.
-- Admin login, access-control, relationship, CRUD, and persistence tests.
+- Production dependency audit with no known vulnerabilities.
 
 Do not start Phase 4 until the Phase 3 review gate is explicitly accepted.

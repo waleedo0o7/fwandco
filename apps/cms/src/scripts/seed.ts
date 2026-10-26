@@ -6,6 +6,8 @@ import configPromise from '../payload.config'
 const seedEnvironmentSchema = z.object({
   SEED_ADMIN_EMAIL: z.email(),
   SEED_ADMIN_PASSWORD: z.string().min(12),
+  SEED_EDITOR_EMAIL: z.email(),
+  SEED_EDITOR_PASSWORD: z.string().min(12),
 })
 
 const richText = (text: string) => ({
@@ -42,32 +44,47 @@ const run = async () => {
   const seedEnvironment = seedEnvironmentSchema.parse(process.env)
   const payload = await getPayload({ config: configPromise })
 
-  const existingAdmin = await payload.find({
-    collection: 'users',
-    limit: 1,
-    overrideAccess: true,
-    where: { email: { equals: seedEnvironment.SEED_ADMIN_EMAIL } },
-  })
-
-  if (existingAdmin.docs[0]) {
-    await payload.update({
+  const ensureUser = async (
+    email: string,
+    password: string,
+    name: string,
+    role: 'admin' | 'editor',
+  ) => {
+    const existing = await payload.find({
       collection: 'users',
-      data: { name: 'POC Administrator', role: 'admin' },
-      id: existingAdmin.docs[0].id,
+      limit: 1,
       overrideAccess: true,
+      where: { email: { equals: email } },
     })
-  } else {
-    await payload.create({
+
+    if (existing.docs[0]) {
+      return payload.update({
+        collection: 'users',
+        data: { name, role },
+        id: existing.docs[0].id,
+        overrideAccess: true,
+      })
+    }
+
+    return payload.create({
       collection: 'users',
-      data: {
-        email: seedEnvironment.SEED_ADMIN_EMAIL,
-        name: 'POC Administrator',
-        password: seedEnvironment.SEED_ADMIN_PASSWORD,
-        role: 'admin',
-      },
+      data: { email, name, password, role },
       overrideAccess: true,
     })
   }
+
+  await ensureUser(
+    seedEnvironment.SEED_ADMIN_EMAIL,
+    seedEnvironment.SEED_ADMIN_PASSWORD,
+    'POC Administrator',
+    'admin',
+  )
+  await ensureUser(
+    seedEnvironment.SEED_EDITOR_EMAIL,
+    seedEnvironment.SEED_EDITOR_PASSWORD,
+    'POC Editor',
+    'editor',
+  )
 
   const ensureGroup = async (
     name: string,

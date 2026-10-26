@@ -9,15 +9,18 @@
     "pnpm": "11.25.0"
   },
   "scripts": {
-    "dev": "pnpm --parallel --filter @poc/web --filter @poc/cms dev",
-    "lint": "pnpm --recursive --workspace-concurrency=2 --if-present lint",
-    "typecheck": "pnpm --recursive --workspace-concurrency=2 --if-present typecheck",
+    "db:start": "pwsh -NoProfile -File scripts/local-postgres.ps1 start",
+    "db:status": "pwsh -NoProfile -File scripts/local-postgres.ps1 status",
+    "db:stop": "pwsh -NoProfile -File scripts/local-postgres.ps1 stop",
+    "dev": "corepack pnpm --parallel --filter @poc/web --filter @poc/cms dev",
+    "lint": "corepack pnpm --recursive --workspace-concurrency=2 --if-present lint",
+    "typecheck": "corepack pnpm --recursive --workspace-concurrency=2 --if-present typecheck",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "build:web": "pnpm --filter @poc/web build",
-    "build:cms": "pnpm --filter @poc/cms build",
-    "build": "pnpm build:web && pnpm build:cms",
-    "validate": "pnpm lint && pnpm typecheck && pnpm format:check && pnpm build:web"
+    "build:web": "corepack pnpm --filter @poc/web build",
+    "build:cms": "corepack pnpm --filter @poc/cms build",
+    "build": "corepack pnpm build:web && corepack pnpm build:cms",
+    "validate": "corepack pnpm lint && corepack pnpm typecheck && corepack pnpm format:check && corepack pnpm build:web"
   },
   "devDependencies": {
     "prettier": "3.9.10",

@@ -1,6 +1,7 @@
 import { postgresAdapter } from '@payloadcms/db-postgres'
 import { lexicalEditor } from '@payloadcms/richtext-lexical'
 import path from 'node:path'
+import { fileURLToPath } from 'node:url'
 import { buildConfig } from 'payload'
 import sharp from 'sharp'
 
@@ -18,11 +19,12 @@ import { getServerEnvironment } from './env'
 import { migrations } from './migrations'
 
 const environment = getServerEnvironment()
+const currentDirectory = path.dirname(fileURLToPath(import.meta.url))
 
 export default buildConfig({
   admin: {
     importMap: {
-      baseDir: path.resolve(import.meta.dirname),
+      baseDir: currentDirectory,
     },
     user: Users.slug,
   },
@@ -41,7 +43,7 @@ export default buildConfig({
   cors: [environment.WEB_PUBLIC_URL],
   csrf: [environment.CMS_PUBLIC_URL, environment.WEB_PUBLIC_URL],
   db: postgresAdapter({
-    migrationDir: path.resolve(import.meta.dirname, 'migrations'),
+    migrationDir: path.resolve(currentDirectory, 'migrations'),
     pool: {
       connectionString: environment.DATABASE_URL,
       max: 5,
@@ -57,6 +59,6 @@ export default buildConfig({
   serverURL: environment.CMS_PUBLIC_URL,
   sharp,
   typescript: {
-    outputFile: path.resolve(import.meta.dirname, 'payload-types.ts'),
+    outputFile: path.resolve(currentDirectory, 'payload-types.ts'),
   },
 })
