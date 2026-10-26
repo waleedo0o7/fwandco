@@ -2,9 +2,9 @@
 
 ## Current phase
 
-**Phase 2 — Project Foundation**
+**Phase 3 — Backend and Database**
 
-Status: complete; waiting for approval before Phase 3.
+Status: implementation complete; database runtime verification pending.
 
 ## Approved versions
 
@@ -13,24 +13,30 @@ Status: complete; waiting for approval before Phase 3.
 - Next.js 16.4.3 and React 19.2.6.
 - Astro 7.4.2 and Tailwind CSS 4.3.3.
 - TypeScript 5.7.3.
-- PostgreSQL 16.8 is deferred until Phase 3.
+- PostgreSQL 16.8 is the configured database target.
 
-## Phase 2 scope
+## Phase 3 implementation
 
-- Workspace and application boundaries.
-- Exact dependency manifests and lockfile.
-- Minimal Astro and Payload/Next bootstraps.
-- Strict TypeScript, ESLint, Prettier, environment examples, and build commands.
-- No production database, migrations, content model, seed data, or deployment.
+- Nine requested domain collections plus separate authenticated CMS users.
+- Admin/editor access control and published-page access rules.
+- Drafts, Lexical content, media, SEO fields, relationships, compound indexes, and validation.
+- Restricted contact submission endpoint with basic anti-spam controls.
+- Initial Payload/Drizzle PostgreSQL migration with runtime schema push disabled.
+- Repeatable fictional seed script.
 
 ## Review gate
 
-Completed on Node.js 24.13.0:
+Completed on Node.js 24.13.0 without a database connection:
 
-- Exact lockfile install and peer-dependency validation passed.
-- Production dependency audit reports no known vulnerabilities.
-- ESLint, TypeScript, Astro diagnostics, and Prettier checks passed.
-- Astro produced a static `dist` artifact.
-- Payload/Next compiled without opening a database connection.
+- Payload type generation.
+- ESLint, TypeScript, and Prettier checks.
+- Payload/Next production compile including `/api/contact`.
+- Static migration generation and schema review.
 
-Phase 3 requires explicit user approval.
+Pending because PostgreSQL is not installed or listening locally:
+
+- Apply and rollback migration tests.
+- Repeatable seed execution.
+- Admin login, access-control, relationship, CRUD, and persistence tests.
+
+Do not start Phase 4 until the Phase 3 review gate is explicitly accepted.

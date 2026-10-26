@@ -29,3 +29,6 @@ cPanel shared-hosting environment.
 
 Copy each application's `.env.example` to `.env` only when that application needs to run. Never
 commit credentials.
+
+Backend schema, access rules, migration, seed, and the current database verification boundary are
+documented in [`docs/backend-database.md`](docs/backend-database.md).

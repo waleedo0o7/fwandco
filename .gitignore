@@ -11,5 +11,4 @@ coverage/
 .env.*
 !.env.example
 apps/cms/media/
-apps/cms/src/payload-types.ts
 apps/cms/src/payload-generated-schema.ts

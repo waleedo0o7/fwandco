@@ -4,9 +4,18 @@ import path from 'node:path'
 import { buildConfig } from 'payload'
 import sharp from 'sharp'
 
+import { Addresses } from './collections/Addresses'
+import { ContactSubmissions } from './collections/ContactSubmissions'
+import { Groups } from './collections/Groups'
 import { Media } from './collections/Media'
+import { Pages } from './collections/Pages'
+import { People } from './collections/People'
+import { PhoneNumbers } from './collections/PhoneNumbers'
+import { TaskAssignments } from './collections/TaskAssignments'
+import { Tasks } from './collections/Tasks'
 import { Users } from './collections/Users'
 import { getServerEnvironment } from './env'
+import { migrations } from './migrations'
 
 const environment = getServerEnvironment()
 
@@ -17,14 +26,28 @@ export default buildConfig({
     },
     user: Users.slug,
   },
-  collections: [Users, Media],
+  collections: [
+    Users,
+    Groups,
+    People,
+    PhoneNumbers,
+    Addresses,
+    Tasks,
+    TaskAssignments,
+    ContactSubmissions,
+    Media,
+    Pages,
+  ],
   cors: [environment.WEB_PUBLIC_URL],
   csrf: [environment.CMS_PUBLIC_URL, environment.WEB_PUBLIC_URL],
   db: postgresAdapter({
+    migrationDir: path.resolve(import.meta.dirname, 'migrations'),
     pool: {
       connectionString: environment.DATABASE_URL,
       max: 5,
     },
+    prodMigrations: migrations,
+    push: false,
   }),
   editor: lexicalEditor(),
   graphQL: {
