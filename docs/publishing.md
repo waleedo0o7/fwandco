@@ -30,3 +30,6 @@ as an external CI job that builds on Windows and uploads static files. Until tha
 editors must request a rebuild and upload.
 
 The dashboard and contact form do not wait on that rebuild path.
+
+Production mounts Payload at `https://fwandco.com/cms`; REST endpoints use
+`https://fwandco.com/cms/api` without a separate subdomain.

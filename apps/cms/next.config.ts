@@ -3,6 +3,7 @@ import type { NextConfig } from 'next'
 import path from 'node:path'
 
 const nextConfig: NextConfig = {
+  basePath: '/cms',
   output: 'standalone',
   images: {
     localPatterns: [

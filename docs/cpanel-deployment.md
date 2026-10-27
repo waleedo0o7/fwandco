@@ -22,14 +22,14 @@ The CMS archive contains no real `.env` file and no Windows junctions. Its start
 2. Create an empty PostgreSQL database and user in cPanel and grant that user full rights to the
    new database.
 3. Extract `cms-linux-x64.tar.gz` into a dedicated directory outside the public document root.
-4. Create a Node.js 24.13.0 application whose application root is that extracted directory and
-   whose startup file is `app.js`.
+4. Create a Node.js 24.13.0 application whose URL is `https://fwandco.com/cms`, whose application
+   root is that extracted directory, and whose startup file is `app.js`.
 5. Add `DATABASE_URL`, `PAYLOAD_SECRET`, `CMS_PUBLIC_URL`, and `WEB_PUBLIC_URL` in Node.js App
    Manager. Use a fresh random secret of at least 32 characters.
-6. Map the Node.js application to the API subdomain, enable HTTPS, and restart it. The configured
-   production migrations should create the empty schema on first startup.
-7. Confirm `/admin`, `/api/people?limit=1`, and a media URL return successfully before uploading
-   the frontend.
+6. Set `CMS_PUBLIC_URL=https://fwandco.com/cms` and `WEB_PUBLIC_URL=https://fwandco.com`, enable
+   HTTPS, and restart it. The configured production migrations should create the empty schema.
+7. Confirm `/cms/admin`, `/cms/api/people?limit=1`, and a media URL return successfully before
+   uploading the frontend.
 8. Extract `web-static.zip` into the website document root and verify the three public routes.
 
 ## Media and updates

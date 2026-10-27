@@ -1,6 +1,8 @@
-const cmsUrl = import.meta.env.PUBLIC_CMS_URL?.replace(/\/$/, '')
+const publicCmsUrl = import.meta.env.PUBLIC_CMS_URL?.replace(/\/$/, '')
+const cmsBuildUrl =
+  import.meta.env.CMS_BUILD_URL?.replace(/\/$/, '') || publicCmsUrl
 
-if (!cmsUrl) {
+if (!publicCmsUrl || !cmsBuildUrl) {
   throw new Error('PUBLIC_CMS_URL is required to build the Astro website.')
 }
 
@@ -48,7 +50,7 @@ export const getManagedPage = async (slug: ManagedPage['slug']) => {
     limit: '1',
     'where[slug][equals]': slug,
   })
-  const response = await fetch(`${cmsUrl}/api/pages?${query}`)
+  const response = await fetch(`${cmsBuildUrl}/api/pages?${query}`)
 
   if (!response.ok) {
     throw new Error(
@@ -82,8 +84,8 @@ export const getMedia = (media: ManagedPage['image']) => {
 
   return {
     alt: media.alt,
-    url: new URL(media.url, `${cmsUrl}/`).toString(),
+    url: new URL(media.url, `${publicCmsUrl}/`).toString(),
   }
 }
 
-export const publicCmsUrl = cmsUrl
+export { publicCmsUrl }

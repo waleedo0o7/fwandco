@@ -90,7 +90,7 @@ try {
     }
 
     try {
-      Invoke-WebRequest -Uri 'http://localhost:3000/api/pages?limit=1' -UseBasicParsing | Out-Null
+      Invoke-WebRequest -Uri 'http://localhost:3000/cms/api/pages?limit=1' -UseBasicParsing | Out-Null
       $cmsReady = $true
       break
     } catch {
