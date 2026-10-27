@@ -82,9 +82,14 @@ export const getMedia = (media: ManagedPage['image']) => {
     return null
   }
 
+  const mediaUrl = new URL(media.url, `${cmsBuildUrl}/`)
+
   return {
     alt: media.alt,
-    url: new URL(media.url, `${publicCmsUrl}/`).toString(),
+    url: new URL(
+      `${mediaUrl.pathname}${mediaUrl.search}`,
+      `${publicCmsUrl}/`,
+    ).toString(),
   }
 }
 
