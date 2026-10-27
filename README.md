@@ -16,19 +16,21 @@ cPanel shared-hosting environment.
 
 ## Commands
 
-| Command                      | Purpose                                                                  |
-| ---------------------------- | ------------------------------------------------------------------------ |
-| `corepack pnpm db:start`     | Start the dedicated local PostgreSQL 16.8 cluster.                       |
-| `corepack pnpm db:status`    | Check whether the local PostgreSQL cluster is accepting connections.     |
-| `corepack pnpm db:stop`      | Stop the dedicated local PostgreSQL cluster cleanly.                     |
-| `corepack pnpm install`      | Install the exact locked dependency graph.                               |
-| `corepack pnpm dev`          | Run both applications in development mode.                               |
-| `corepack pnpm lint`         | Lint both applications.                                                  |
-| `corepack pnpm typecheck`    | Type-check both applications.                                            |
-| `corepack pnpm format:check` | Check formatting.                                                        |
-| `corepack pnpm build:web`    | Generate the static Astro artifact.                                      |
-| `corepack pnpm build:cms`    | Compile the Payload/Next application without database-backed generation. |
-| `corepack pnpm validate`     | Run the local quality gate.                                              |
+| Command                        | Purpose                                                                  |
+| ------------------------------ | ------------------------------------------------------------------------ |
+| `corepack pnpm db:start`       | Start the dedicated local PostgreSQL 16.8 cluster.                       |
+| `corepack pnpm db:status`      | Check whether the local PostgreSQL cluster is accepting connections.     |
+| `corepack pnpm db:stop`        | Stop the dedicated local PostgreSQL cluster cleanly.                     |
+| `corepack pnpm install`        | Install the exact locked dependency graph.                               |
+| `corepack pnpm dev`            | Run both applications in development mode.                               |
+| `corepack pnpm lint`           | Lint both applications.                                                  |
+| `corepack pnpm typecheck`      | Type-check both applications.                                            |
+| `corepack pnpm format:check`   | Check formatting.                                                        |
+| `corepack pnpm build:web`      | Generate the static Astro artifact.                                      |
+| `corepack pnpm build:cms`      | Compile the Payload/Next application without database-backed generation. |
+| `corepack pnpm build:cms:full` | Build the complete Payload/Next standalone production application.       |
+| `corepack pnpm release:cpanel` | Validate and create the two cPanel upload archives.                      |
+| `corepack pnpm validate`       | Run the local quality gate.                                              |
 
 Copy each application's `.env.example` to `.env` only when that application needs to run. Never
 commit credentials.
@@ -36,3 +38,6 @@ commit credentials.
 Backend schema, access rules, migration, seed, and the current database verification boundary are
 documented in [`docs/backend-database.md`](docs/backend-database.md). The Astro rebuild versus
 runtime API split is documented in [`docs/publishing.md`](docs/publishing.md).
+Local production results are in
+[`docs/local-production-testing.md`](docs/local-production-testing.md), and the prepared hosting
+procedure is in [`docs/cpanel-deployment.md`](docs/cpanel-deployment.md).

@@ -17,9 +17,11 @@
     "typecheck": "corepack pnpm --recursive --workspace-concurrency=2 --if-present typecheck",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "build:web": "corepack pnpm --filter @poc/web build",
+    "build:web": "node scripts/astro-build.mjs",
     "build:cms": "corepack pnpm --filter @poc/cms build",
+    "build:cms:full": "corepack pnpm --filter @poc/cms build:full",
     "build": "corepack pnpm build:web && corepack pnpm build:cms",
+    "release:cpanel": "pwsh -NoProfile -File scripts/prepare-cpanel.ps1",
     "validate": "corepack pnpm lint && corepack pnpm typecheck && corepack pnpm format:check && corepack pnpm build:web"
   },
   "devDependencies": {

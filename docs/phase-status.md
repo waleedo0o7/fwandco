@@ -2,9 +2,9 @@
 
 ## Current phase
 
-**Phase 4 — Astro Frontend and CMS Integration**
+**Phase 6 — Deployment Preparation**
 
-Status: complete; waiting for approval before Phase 5.
+Status: complete locally; Phase 7 requires cPanel access for real-server validation.
 
 ## Approved versions
 
@@ -15,26 +15,23 @@ Status: complete; waiting for approval before Phase 5.
 - TypeScript 5.7.3.
 - PostgreSQL 16.8 is the configured database target.
 
-## Phase 4 implementation
+## Phase 5 and 6 implementation
 
-- Responsive Astro dashboard with runtime Payload REST data, summary cards, filters, loading, empty,
-  retry, and error states.
-- Static About and Contact pages generated from published Payload page documents.
-- Payload-managed page images, SEO metadata, canonical URLs, navigation, and accessible page structure.
-- Browser contact form with validation, loading, success, error, honeypot, and timing fields.
-- Publishing documentation for the static rebuild path versus runtime API updates.
-- Repeatable fictional seed content and repository-owned SVG fixtures for page media.
+- Full Payload/Next standalone and Astro production builds on Node.js 24.13.0.
+- Production-mode API, CORS, contact persistence, media, restart, and static-route smoke tests.
+- Reproducible cPanel release script with integrity hashes and no committed secrets.
+- Portable physical CMS dependencies with Windows junctions removed and Linux x64 Sharp included.
+- Static web archive, CMS runtime archive, deployment procedure, and local test report.
 
 ## Review gate
 
 Completed locally on Node.js 24.13.0 and PostgreSQL 16.8:
 
-- Desktop and mobile browser review of all three public routes.
-- Live dashboard loading, filtering, relationship rendering, and responsive card layout.
-- Published CMS text and media rendered in the generated About and Contact pages.
-- Contact form browser submission and PostgreSQL persistence verification.
-- Browser console review with no warnings or errors.
-- ESLint, TypeScript, Prettier, Astro static build, and Payload/Next production compile.
+- Full production build and extracted standalone runtime startup.
+- Public pages, Admin, REST API, media, allowed/blocked CORS, and form persistence.
+- Application restart without database or media loss.
+- Portable archive checks for secrets, Windows links, Linux native binaries, and required files.
+- ESLint, TypeScript, Prettier, Astro SSG build, and Payload/Next full production build.
 - Production dependency audit with no known vulnerabilities.
 
-Do not start Phase 5 until the Phase 4 review gate is explicitly accepted.
+Phase 7 is not complete until the release is deployed and tested on the real cPanel server.
