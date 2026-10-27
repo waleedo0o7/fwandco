@@ -1,12 +1,25 @@
 ---
 import '../styles/global.css'
+import SiteFooter from '../components/SiteFooter.astro'
+import SiteHeader from '../components/SiteHeader.astro'
 
 interface Props {
-  title: string
+  canonicalPath?: string
   description: string
+  image?: null | { alt: string; url: string }
+  noIndex?: boolean
+  title: string
 }
 
-const { title, description } = Astro.props
+const {
+  title,
+  description,
+  image = null,
+  noIndex = true,
+  canonicalPath = Astro.url.pathname,
+} = Astro.props
+const siteUrl = import.meta.env.PUBLIC_SITE_URL
+const canonicalUrl = siteUrl ? new URL(canonicalPath, siteUrl) : undefined
 ---
 
 <!doctype html>
@@ -15,12 +28,26 @@ const { title, description } = Astro.props
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
     <meta name="description" content={description} />
-    <meta name="robots" content="noindex, nofollow" />
+    <meta
+      name="robots"
+      content={noIndex ? 'noindex, nofollow' : 'index, follow'}
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    {canonicalUrl && <meta property="og:url" content={canonicalUrl} />}
+    {image && <meta property="og:image" content={image.url} />}
+    {canonicalUrl && <link rel="canonical" href={canonicalUrl} />}
     <title>{title}</title>
   </head>
   <body>
-    <main>
+    <a class="skip-link" href="#main-content">
+      Skip to content
+    </a>
+    <SiteHeader />
+    <main id="main-content">
       <slot />
     </main>
+    <SiteFooter />
   </body>
 </html>

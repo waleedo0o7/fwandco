@@ -34,4 +34,5 @@ Copy each application's `.env.example` to `.env` only when that application need
 commit credentials.
 
 Backend schema, access rules, migration, seed, and the current database verification boundary are
-documented in [`docs/backend-database.md`](docs/backend-database.md).
+documented in [`docs/backend-database.md`](docs/backend-database.md). The Astro rebuild versus
+runtime API split is documented in [`docs/publishing.md`](docs/publishing.md).

@@ -1,7 +1,12 @@
 import { getPayload } from 'payload'
+import path from 'node:path'
+import { fileURLToPath } from 'node:url'
 import { z } from 'zod'
 
 import configPromise from '../payload.config'
+
+const currentDirectory = path.dirname(fileURLToPath(import.meta.url))
+const seedAssetDirectory = path.resolve(currentDirectory, '../../seed-assets')
 
 const seedEnvironmentSchema = z.object({
   SEED_ADMIN_EMAIL: z.email(),
@@ -285,10 +290,40 @@ const run = async () => {
   await ensureAssignment(salma.id, reviewTask.id)
   await ensureAssignment(youssef.id, followUpTask.id)
 
+  const ensureMedia = async (alt: string, filename: string) => {
+    const existing = await payload.find({
+      collection: 'media',
+      limit: 1,
+      overrideAccess: true,
+      where: { alt: { equals: alt } },
+    })
+
+    if (existing.docs[0]) {
+      return existing.docs[0]
+    }
+
+    return payload.create({
+      collection: 'media',
+      data: { alt },
+      filePath: path.join(seedAssetDirectory, filename),
+      overrideAccess: true,
+    })
+  }
+
+  const aboutImage = await ensureMedia(
+    'Abstract modern office illustration',
+    'about-office.svg',
+  )
+  const contactImage = await ensureMedia(
+    'Abstract client contact desk illustration',
+    'contact-desk.svg',
+  )
+
   const ensurePage = async (
     slug: 'about' | 'contact',
     title: string,
     body: string,
+    image: number,
   ) => {
     const existing = await payload.find({
       collection: 'pages',
@@ -301,13 +336,24 @@ const run = async () => {
       _status: 'published' as const,
       content: richText(body),
       heading: title,
+      image,
       seo: {
         description: `${body.slice(0, 145)} POC content.`,
+        image,
         noIndex: true,
         title: `${title} | Compatibility POC`,
       },
       slug,
       title,
+      ...(slug === 'contact'
+        ? {
+            contactInformation: {
+              address: '12 Fictional Nile Street, Cairo, Egypt',
+              email: 'hello@example.test',
+              phone: '+20 2 5550 0100',
+            },
+          }
+        : {}),
     }
 
     return existing.docs[0]
@@ -330,11 +376,13 @@ const run = async () => {
     'about',
     'About the POC',
     'This fictional page validates managed rich text content.',
+    aboutImage.id,
   )
   await ensurePage(
     'contact',
     'Contact the test team',
     'Use the contact form to validate secure PostgreSQL persistence.',
+    contactImage.id,
   )
 
   payload.logger.info('Repeatable POC seed completed.')

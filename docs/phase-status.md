@@ -2,9 +2,9 @@
 
 ## Current phase
 
-**Phase 3 — Backend and Database**
+**Phase 4 — Astro Frontend and CMS Integration**
 
-Status: complete; waiting for approval before Phase 4.
+Status: complete; waiting for approval before Phase 5.
 
 ## Approved versions
 
@@ -15,28 +15,26 @@ Status: complete; waiting for approval before Phase 4.
 - TypeScript 5.7.3.
 - PostgreSQL 16.8 is the configured database target.
 
-## Phase 3 implementation
+## Phase 4 implementation
 
-- Nine requested domain collections plus separate authenticated CMS users.
-- Admin/editor access control and published-page access rules.
-- Drafts, Lexical content, media, SEO fields, relationships, compound indexes, and validation.
-- Restricted contact submission endpoint with basic anti-spam controls.
-- Initial Payload/Drizzle PostgreSQL migration with runtime schema push disabled.
-- Repeatable fictional seed script.
+- Responsive Astro dashboard with runtime Payload REST data, summary cards, filters, loading, empty,
+  retry, and error states.
+- Static About and Contact pages generated from published Payload page documents.
+- Payload-managed page images, SEO metadata, canonical URLs, navigation, and accessible page structure.
+- Browser contact form with validation, loading, success, error, honeypot, and timing fields.
+- Publishing documentation for the static rebuild path versus runtime API updates.
+- Repeatable fictional seed content and repository-owned SVG fixtures for page media.
 
 ## Review gate
 
-Completed on Node.js 24.13.0 and local PostgreSQL 16.8:
+Completed locally on Node.js 24.13.0 and PostgreSQL 16.8:
 
-- Migration apply, rollback, re-apply, and status checks.
-- Repeatable seed execution and relationship persistence.
-- Admin/editor login and access-control verification.
-- Public/private REST API and contact-submission persistence verification.
-- Media upload, retrieval, deletion, and filesystem cleanup.
-- PostgreSQL restart with data and migration-history persistence.
-- Payload type generation.
-- ESLint, TypeScript, and Prettier checks.
-- Payload/Next production compile including `/api/contact`.
+- Desktop and mobile browser review of all three public routes.
+- Live dashboard loading, filtering, relationship rendering, and responsive card layout.
+- Published CMS text and media rendered in the generated About and Contact pages.
+- Contact form browser submission and PostgreSQL persistence verification.
+- Browser console review with no warnings or errors.
+- ESLint, TypeScript, Prettier, Astro static build, and Payload/Next production compile.
 - Production dependency audit with no known vulnerabilities.
 
-Do not start Phase 4 until the Phase 3 review gate is explicitly accepted.
+Do not start Phase 5 until the Phase 4 review gate is explicitly accepted.

@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" role="img" aria-labelledby="title description">
+  <title id="title">Fictional modern office</title>
+  <desc id="description">Abstract architectural illustration used by the local compatibility POC.</desc>
+  <rect width="1200" height="800" fill="#0b1f33" />
+  <circle cx="980" cy="150" r="210" fill="#c79a55" opacity=".9" />
+  <path d="M0 610 420 250l280 210 160-130 340 280v190H0Z" fill="#f4efe6" />
+  <path d="M110 650 430 380l205 155 190-145 260 225v90H110Z" fill="#d8e0e7" />
+  <g fill="#0b1f33">
+    <rect x="385" y="485" width="110" height="220" rx="4" />
+    <rect x="665" y="540" width="95" height="165" rx="4" />
+    <rect x="835" y="500" width="95" height="205" rx="4" />
+  </g>
+  <path d="M125 185h470" stroke="#fff" stroke-width="6" opacity=".7" />
+  <path d="M125 215h330" stroke="#fff" stroke-width="3" opacity=".45" />
+</svg>
