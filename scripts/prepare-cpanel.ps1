@@ -63,7 +63,12 @@ if (-not (Test-Path -LiteralPath $standaloneApp)) {
 }
 
 Copy-Item -LiteralPath (Join-Path $projectRoot 'apps/cms/.next/static') -Destination (Join-Path $standaloneApp '.next/static') -Recurse -Force
-Copy-Item -LiteralPath (Join-Path $projectRoot 'apps/cms/media') -Destination (Join-Path $standaloneApp 'media') -Recurse -Force
+$sourceMedia = Join-Path $projectRoot 'apps/cms/media'
+$standaloneMedia = Join-Path $standaloneApp 'media'
+New-Item -ItemType Directory -Path $standaloneMedia -Force | Out-Null
+if (Test-Path -LiteralPath $sourceMedia) {
+  Copy-Item -Path (Join-Path $sourceMedia '*') -Destination $standaloneMedia -Recurse -Force
+}
 
 $sharpWinSource = Join-Path $projectRoot 'node_modules/.pnpm/@img+sharp-win32-x64@0.35.5/node_modules/@img/sharp-win32-x64/lib'
 $sharpWinDestination = Join-Path $standaloneRoot 'node_modules/.pnpm/@img+sharp-win32-x64@0.35.5/node_modules/@img/sharp-win32-x64/lib'
@@ -188,7 +193,7 @@ $requiredEntries = @(
   './app.js',
   './apps/cms/server.js',
   './apps/cms/.next/static/',
-  './apps/cms/media/about-office.svg',
+  './apps/cms/media/',
   './node_modules/semver/index.js'
 )
 

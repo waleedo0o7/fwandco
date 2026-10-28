@@ -1,11 +1,19 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro'
-import Dashboard from '../components/Dashboard.astro'
 ---
 
 <BaseLayout
-  title="Operations dashboard | Northstar POC"
-  description="A local full-stack compatibility dashboard powered by Astro, Payload CMS, and PostgreSQL."
+  title="Production Base"
+  description="Reusable Astro and Payload production infrastructure."
 >
-  <Dashboard />
+  <section class="mx-auto max-w-4xl px-5 py-20 text-center sm:px-8 sm:py-28">
+    <p class="eyebrow">Production foundation</p>
+    <h1 class="mt-4 text-4xl font-semibold tracking-tight text-slate-950 sm:text-6xl">
+      Ready for product development.
+    </h1>
+    <p class="mx-auto mt-6 max-w-2xl text-lg leading-8 text-slate-600">
+      Astro, Payload CMS, PostgreSQL, media, authentication, rich text, and
+      cPanel deployment are configured as a reusable base.
+    </p>
+  </section>
 </BaseLayout>

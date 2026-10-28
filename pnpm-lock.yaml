@@ -38,9 +38,6 @@ importers:
       cross-env:
         specifier: 7.0.3
         version: 7.0.3
-      dotenv:
-        specifier: 16.4.7
-        version: 16.4.7
       graphql:
         specifier: 16.14.2
         version: 16.14.2
@@ -2628,10 +2625,6 @@ packages:
 
   domutils@3.2.2:
     resolution: {integrity: sha512-6kZKyUajlDuqlHKVX1w7gyslj9MPIXzIFiz/rGu35uC1wMi+kMhQwGhl4lt9unC9Vb9INnY9Z3/ZA3+FhASLaw==}
-
-  dotenv@16.4.7:
-    resolution: {integrity: sha512-47qPchRCykZC03FhkYAhrvwU4xDBFIj1QPqaarj6mdM/hgUzfPHcpkHJOn3mJAufFeeAxAzeGsr5X0M4k6fLZQ==}
-    engines: {node: '>=12'}
 
   drizzle-kit@0.31.7:
     resolution: {integrity: sha512-hOzRGSdyKIU4FcTSFYGKdXEjFsncVwHZ43gY3WU5Bz9j5Iadp6Rh6hxLSQ1IWXpKLBKt/d5y1cpSPcV+FcoQ1A==}
@@ -7655,8 +7648,6 @@ snapshots:
       dom-serializer: 2.0.0
       domelementtype: 2.3.0
       domhandler: 5.0.3
-
-  dotenv@16.4.7: {}
 
   drizzle-kit@0.31.7(supports-color@7.2.0):
     dependencies:

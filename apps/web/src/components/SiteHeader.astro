@@ -1,7 +1,7 @@
 ---
 const pathname = Astro.url.pathname
 const links = [
-  { href: '/', label: 'Dashboard' },
+  { href: '/', label: 'Home' },
   { href: '/about/', label: 'About us' },
   { href: '/contact/', label: 'Contact' },
 ]
@@ -12,16 +12,18 @@ const links = [
     <a
       class="flex items-center gap-3 text-slate-950"
       href="/"
-      aria-label="Northstar POC home"
+      aria-label="Production Base home"
     >
       <span class="grid size-10 place-items-center rounded-xl bg-slate-950 text-sm font-bold text-white">
-        N
+        B
       </span>
       <span>
         <span class="block text-sm font-semibold tracking-tight">
-          Northstar POC
+          Production Base
         </span>
-        <span class="block text-xs text-slate-500">Local stack validation</span>
+        <span class="block text-xs text-slate-500">
+          Reusable infrastructure
+        </span>
       </span>
     </a>
 

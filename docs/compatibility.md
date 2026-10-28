@@ -23,11 +23,11 @@ Narrow pnpm overrides patch vulnerable transitive copies of DOMPurify, Undici, H
 legacy esbuild copy pulled through Drizzle Kit. The resolved production graph currently reports no
 known vulnerabilities and no peer-dependency errors.
 
-## Pending real-server proof
+## Hosting validation boundary
 
-- Passenger startup behavior for the Next.js standalone artifact.
-- Linux x64 native dependency loading, especially Sharp.
-- PostgreSQL connectivity, permissions, transactions, and migrations.
-- Runtime memory consumption under the 1 GB limit.
-- Persistent writable media storage across restart and redeploy.
-- Apache request-size, timeout, CORS, SSL, and proxy behavior.
+The original compatibility deployment proved Node.js App Manager startup, PostgreSQL connectivity,
+REST reads and writes, authentication, Apache proxying, SSL, and the same-domain `/cms` mount on the
+target server.
+
+Every derived product must still validate its own migrations, media persistence, request limits,
+restart behavior, and memory use before launch.

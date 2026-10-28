@@ -26,12 +26,8 @@ export const Pages: CollectionConfig = {
     },
     {
       name: 'slug',
-      type: 'select',
+      type: 'text',
       index: true,
-      options: [
-        { label: 'About', value: 'about' },
-        { label: 'Contact', value: 'contact' },
-      ],
       required: true,
       unique: true,
     },
@@ -53,9 +49,6 @@ export const Pages: CollectionConfig = {
     {
       name: 'contactInformation',
       type: 'group',
-      admin: {
-        condition: (_, siblingData) => siblingData?.slug === 'contact',
-      },
       fields: [
         { name: 'email', type: 'email' },
         { name: 'phone', type: 'text' },

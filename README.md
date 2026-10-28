@@ -1,43 +1,34 @@
-# cPanel Full-Stack Compatibility POC
+# Reusable Production Base
 
-A small monorepo used to prove Astro, Payload CMS, Next.js, and PostgreSQL deployment on the target
-cPanel shared-hosting environment.
+A production-ready monorepo foundation for static Astro websites backed by Payload CMS and PostgreSQL on the validated cPanel environment.
 
 ## Applications
 
 - `apps/web` — Astro static frontend.
-- `apps/cms` — Payload CMS, Next.js admin, and REST API.
+- `apps/cms` — Payload CMS, Next.js admin, REST API, authentication, media, pages, and contact submissions.
 
-## Required runtime
+## Fixed runtime
 
 - Node.js 24.13.0
 - pnpm 11.25.0
-- PostgreSQL 16.8 for database phases
+- PostgreSQL 16.8
+- Payload 3.91.0
 
 ## Commands
 
-| Command                        | Purpose                                                                  |
-| ------------------------------ | ------------------------------------------------------------------------ |
-| `corepack pnpm db:start`       | Start the dedicated local PostgreSQL 16.8 cluster.                       |
-| `corepack pnpm db:status`      | Check whether the local PostgreSQL cluster is accepting connections.     |
-| `corepack pnpm db:stop`        | Stop the dedicated local PostgreSQL cluster cleanly.                     |
-| `corepack pnpm install`        | Install the exact locked dependency graph.                               |
-| `corepack pnpm dev`            | Run both applications in development mode.                               |
-| `corepack pnpm lint`           | Lint both applications.                                                  |
-| `corepack pnpm typecheck`      | Type-check both applications.                                            |
-| `corepack pnpm format:check`   | Check formatting.                                                        |
-| `corepack pnpm build:web`      | Generate the static Astro artifact.                                      |
-| `corepack pnpm build:cms`      | Compile the Payload/Next application without database-backed generation. |
-| `corepack pnpm build:cms:full` | Build the complete Payload/Next standalone production application.       |
-| `corepack pnpm release:cpanel` | Validate and create the two cPanel upload archives.                      |
-| `corepack pnpm validate`       | Run the local quality gate.                                              |
+| Command                        | Purpose                                         |
+| ------------------------------ | ----------------------------------------------- |
+| `corepack pnpm db:start`       | Start the isolated local PostgreSQL cluster.    |
+| `corepack pnpm db:status`      | Check local PostgreSQL.                         |
+| `corepack pnpm db:stop`        | Stop local PostgreSQL.                          |
+| `corepack pnpm install`        | Install the exact locked dependency graph.      |
+| `corepack pnpm dev`            | Run the frontend and CMS in development.        |
+| `corepack pnpm lint`           | Lint all applications.                          |
+| `corepack pnpm typecheck`      | Type-check all applications.                    |
+| `corepack pnpm build:web`      | Generate the Astro static output.               |
+| `corepack pnpm build:cms:full` | Build the Payload/Next standalone runtime.      |
+| `corepack pnpm release:cpanel` | Validate and create cPanel deployment archives. |
 
-Copy each application's `.env.example` to `.env` only when that application needs to run. Never
-commit credentials.
+Copy each `.env.example` to `.env` only when required. Never commit credentials.
 
-Backend schema, access rules, migration, seed, and the current database verification boundary are
-documented in [`docs/backend-database.md`](docs/backend-database.md). The Astro rebuild versus
-runtime API split is documented in [`docs/publishing.md`](docs/publishing.md).
-Local production results are in
-[`docs/local-production-testing.md`](docs/local-production-testing.md), and the prepared hosting
-procedure is in [`docs/cpanel-deployment.md`](docs/cpanel-deployment.md).
+See `docs/base-infrastructure.md`, `docs/backend-database.md`, and `docs/cpanel-deployment.md` before extending or deploying the base.

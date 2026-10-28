@@ -68,12 +68,6 @@ export interface Config {
   blocks: {};
   collections: {
     users: User;
-    groups: Group;
-    people: Person;
-    'phone-numbers': PhoneNumber;
-    addresses: Address;
-    tasks: Task;
-    'task-assignments': TaskAssignment;
     'contact-submissions': ContactSubmission;
     media: Media;
     pages: Page;
@@ -82,27 +76,9 @@ export interface Config {
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
   };
-  collectionsJoins: {
-    groups: {
-      members: 'people';
-    };
-    people: {
-      phoneNumbers: 'phone-numbers';
-      addresses: 'addresses';
-      taskAssignments: 'task-assignments';
-    };
-    tasks: {
-      assignments: 'task-assignments';
-    };
-  };
+  collectionsJoins: {};
   collectionsSelect: {
     users: UsersSelect<false> | UsersSelect<true>;
-    groups: GroupsSelect<false> | GroupsSelect<true>;
-    people: PeopleSelect<false> | PeopleSelect<true>;
-    'phone-numbers': PhoneNumbersSelect<false> | PhoneNumbersSelect<true>;
-    addresses: AddressesSelect<false> | AddressesSelect<true>;
-    tasks: TasksSelect<false> | TasksSelect<true>;
-    'task-assignments': TaskAssignmentsSelect<false> | TaskAssignmentsSelect<true>;
     'contact-submissions': ContactSubmissionsSelect<false> | ContactSubmissionsSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
     pages: PagesSelect<false> | PagesSelect<true>;
@@ -175,112 +151,6 @@ export interface User {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "groups".
- */
-export interface Group {
-  id: number;
-  name: string;
-  slug: string;
-  description?: string | null;
-  members?: {
-    docs?: (number | Person)[];
-    hasNextPage?: boolean;
-    totalDocs?: number;
-  };
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "people".
- */
-export interface Person {
-  id: number;
-  name: string;
-  jobTitle?: string | null;
-  group: number | Group;
-  phoneNumbers?: {
-    docs?: (number | PhoneNumber)[];
-    hasNextPage?: boolean;
-    totalDocs?: number;
-  };
-  addresses?: {
-    docs?: (number | Address)[];
-    hasNextPage?: boolean;
-    totalDocs?: number;
-  };
-  taskAssignments?: {
-    docs?: (number | TaskAssignment)[];
-    hasNextPage?: boolean;
-    totalDocs?: number;
-  };
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "phone-numbers".
- */
-export interface PhoneNumber {
-  id: number;
-  person: number | Person;
-  label: 'mobile' | 'office' | 'home' | 'other';
-  number: string;
-  isPrimary?: boolean | null;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "addresses".
- */
-export interface Address {
-  id: number;
-  person: number | Person;
-  label: string;
-  line1: string;
-  line2?: string | null;
-  city: string;
-  region?: string | null;
-  postalCode?: string | null;
-  country: string;
-  isPrimary?: boolean | null;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "task-assignments".
- */
-export interface TaskAssignment {
-  id: number;
-  person: number | Person;
-  task: number | Task;
-  assignedAt: string;
-  note?: string | null;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "tasks".
- */
-export interface Task {
-  id: number;
-  title: string;
-  description?: string | null;
-  status: 'pending' | 'in_progress' | 'completed' | 'cancelled';
-  dueDate?: string | null;
-  assignments?: {
-    docs?: (number | TaskAssignment)[];
-    hasNextPage?: boolean;
-    totalDocs?: number;
-  };
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "contact-submissions".
  */
 export interface ContactSubmission {
@@ -321,7 +191,7 @@ export interface Media {
 export interface Page {
   id: number;
   title: string;
-  slug: 'about' | 'contact';
+  slug: string;
   heading: string;
   content: {
     root: {
@@ -381,30 +251,6 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'users';
         value: number | User;
-      } | null)
-    | ({
-        relationTo: 'groups';
-        value: number | Group;
-      } | null)
-    | ({
-        relationTo: 'people';
-        value: number | Person;
-      } | null)
-    | ({
-        relationTo: 'phone-numbers';
-        value: number | PhoneNumber;
-      } | null)
-    | ({
-        relationTo: 'addresses';
-        value: number | Address;
-      } | null)
-    | ({
-        relationTo: 'tasks';
-        value: number | Task;
-      } | null)
-    | ({
-        relationTo: 'task-assignments';
-        value: number | TaskAssignment;
       } | null)
     | ({
         relationTo: 'contact-submissions';
@@ -484,86 +330,6 @@ export interface UsersSelect<T extends boolean = true> {
         createdAt?: T;
         expiresAt?: T;
       };
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "groups_select".
- */
-export interface GroupsSelect<T extends boolean = true> {
-  name?: T;
-  slug?: T;
-  description?: T;
-  members?: T;
-  updatedAt?: T;
-  createdAt?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "people_select".
- */
-export interface PeopleSelect<T extends boolean = true> {
-  name?: T;
-  jobTitle?: T;
-  group?: T;
-  phoneNumbers?: T;
-  addresses?: T;
-  taskAssignments?: T;
-  updatedAt?: T;
-  createdAt?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "phone-numbers_select".
- */
-export interface PhoneNumbersSelect<T extends boolean = true> {
-  person?: T;
-  label?: T;
-  number?: T;
-  isPrimary?: T;
-  updatedAt?: T;
-  createdAt?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "addresses_select".
- */
-export interface AddressesSelect<T extends boolean = true> {
-  person?: T;
-  label?: T;
-  line1?: T;
-  line2?: T;
-  city?: T;
-  region?: T;
-  postalCode?: T;
-  country?: T;
-  isPrimary?: T;
-  updatedAt?: T;
-  createdAt?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "tasks_select".
- */
-export interface TasksSelect<T extends boolean = true> {
-  title?: T;
-  description?: T;
-  status?: T;
-  dueDate?: T;
-  assignments?: T;
-  updatedAt?: T;
-  createdAt?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "task-assignments_select".
- */
-export interface TaskAssignmentsSelect<T extends boolean = true> {
-  person?: T;
-  task?: T;
-  assignedAt?: T;
-  note?: T;
-  updatedAt?: T;
-  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

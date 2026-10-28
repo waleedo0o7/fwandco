@@ -12,7 +12,6 @@
 - `apps/web` is the Astro static public website.
 - `apps/cms` is the Payload CMS, Next.js admin, and REST API.
 - The browser never connects directly to PostgreSQL.
-- Public people records and CMS authentication users are separate concepts.
 - Do not add a second backend, ORM, CMS, paid service, Docker requirement, or server-side build.
 
 ## Delivery rules
